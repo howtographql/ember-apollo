@@ -1,0 +1,9 @@
+<div>
+  <form class='flex flex-column mt3' {{action 'createLink' on='submit'}}>
+    {{input class='mb2' type='text' placeholder='A description for the link' value=description}}
+    {{input class='mb2' type='text' placeholder='The URL for the link' value=url}}
+    <div class='flex'>
+    {{input type='submit' value='submit'}}
+    </div>
+  </form>
+</div>

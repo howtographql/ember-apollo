@@ -1,0 +1,23 @@
+  <div class='flex pa1 justify-between nowrap orange'>
+    <div class='flex flex-fixed black'>
+      <div class='fw7 mr1'>Hacker News</div>
+      {{#link-to 'links' class='ml1 no-underline black'}}new{{/link-to}}
+      <div class='ml1'>|</div>
+      {{#link-to 'search' class='ml1 no-underline black'}}search{{/link-to}}
+      {{#if userLoggedIn}}
+        <div class='flex'>
+          <div class='ml1'>|</div>
+          {{#link-to 'create' class='ml1 no-underline black'}}submit{{/link-to}}
+        </div>
+      {{/if}}
+    </div>
+    <div class='flex flex-fixed'>
+      {{#if userLoggedIn}}
+        <div class='ml1 pointer black' {{action 'logout'}}>
+          logout
+        </div>
+      {{else}}
+        {{#link-to 'login' class='ml1 no-underline black'}}login{{/link-to}}
+      {{/if}}
+    </div>
+  </div>

@@ -1,0 +1,18 @@
+query AllLinks {
+  allLinks {
+    id
+    createdAt
+    description
+    url
+    postedBy {
+      id
+      name
+    }
+    votes {
+      id
+      user {
+        id
+      }
+    }
+  }
+}

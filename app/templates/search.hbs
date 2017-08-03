@@ -1,0 +1,9 @@
+<div>
+  <form {{action 'executeSearch' on='submit'}}>
+    {{input type='text' value=searchText}}
+    {{input type='submit' value='search'}}
+  </form>
+  {{#each model as |link index|}}
+    {{link-post index=index link=link}}
+  {{/each}}
+</div>

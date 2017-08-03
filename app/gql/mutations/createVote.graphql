@@ -1,0 +1,16 @@
+mutation CreateVoteMutation($userId: ID!, $linkId: ID!) {
+  createVote(userId: $userId, linkId: $linkId) {
+    id
+    link {
+      votes {
+        id
+        user {
+          id
+        }
+      }
+    }
+    user {
+      id
+    }
+  }
+}

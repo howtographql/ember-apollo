@@ -1,0 +1,14 @@
+<div class='flex mt2 items-start'>
+  <div class='flex items-center'>
+    <span class='gray'>{{add index 1}}.</span>
+    {{#if userLoggedIn}}
+      <div class='ml1 gray f11 pointer' {{action 'voteForLink' link.votes link.id}}>
+        ▲
+      </div>
+    {{/if}}
+  </div>
+  <div class='ml1'>
+    <div>{{link.description}} ({{link.url}})</div>
+    <div class='f6 lh-copy gray'>{{link.votes.length}} votes | by {{if link.postedBy.name link.postedBy.name 'Unknown'}} {{moment-from-now link.createdAt}}</div>
+  </div>
+</div>
