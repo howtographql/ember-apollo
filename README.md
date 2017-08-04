@@ -17,36 +17,29 @@ cd ember-apollo
 npm install -g graphcool
 
 # Create a new project based on the Hackernews schema
-graphcool init --schema https://graphqlbin.com/hn-starter.graphql --name Hackernews 
+graphcool init --schema https://graphqlbin.com/hn.graphql --name Hackernews 
 ```
 
 This creates a GraphQL API for the following schema:
 
 ```graphql
-
-type File implements Node {
-  contentType: String!
-  createdAt: DateTime!
-  id: ID! @isUnique
-  name: String!
-  secret: String! @isUnique
-  size: Int!
-  updatedAt: DateTime!
-  url: String! @isUnique
-}
                 
 type Link implements Node {
-  createdAt: DateTime!
   description: String!
-  id: ID! @isUnique
-  updatedAt: DateTime!
+  postedBy: User @relation(name: "UsersLinks")
   url: String!
+  votes: [Vote!] @relation(name: "VotesOnLink")
 }
                           
 type User implements Node {
-  createdAt: DateTime!
-  id: ID! @isUnique
-  updatedAt: DateTime!
+  links: [Link!] @relation(name: "UsersLinks")
+  name: String!
+  votes: [Vote!] @relation(name: "UsersVotes")
+}
+
+type Vote {
+  link: Link @relation(name: "VotesOnLink")
+  user: User @relation(name: "UsersVotes")
 }
 ```
                                 
@@ -54,7 +47,20 @@ type User implements Node {
                                 
 Copy the simple API endpoint URL (which you find by executing `graphcool endpoints`) and replace `__SIMPLE_API_URL__` in `config/environment.js`.
 
-### 4. Install dependencies & run locally
+### 4. Enable email-password Authentication Provider
+
+Open your project in the [Graphcool console](https://console.graph.cool) (you can use the `graphcool console` command in the terminal or simply navigate to it in the browser).
+
+Then click the following items:
+
+- Select **Integrations** in the left side-menu
+- Select **Email-Password Auth**
+- Select **Enable**
+
+![](http://imgur.com/UTY6IH5.png)
+
+
+### 5. Install dependencies & run locally
 
 ```sh
 yarn install
