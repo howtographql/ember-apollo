@@ -3,6 +3,12 @@
 This is the sample project that belongs to the [Ember & Apollo Tutorial](https://www.howtographql.com/ember-apollo/0-introduction/) on How to GraphQL.
 
 ## Running the app
+### 0. Verify dependencies
+
+This project relies on two dependencies: [Node](https://nodejs.org) and [`ember-cli`](https://ember-cli.com).
+
+Verify these dependencies are installed and configured.
+
 ### 1. Clone repository
 
 ```sh
@@ -14,7 +20,7 @@ cd ember-apollo
 
 ```sh
 # Install Graphcool CLI
-npm install -g graphcool
+yarn global add graphcool
 
 # Create a new project based on the Hackernews schema
 graphcool init --schema https://graphqlbin.com/hn.graphql --name Hackernews 
