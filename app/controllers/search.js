@@ -6,9 +6,12 @@ export default Ember.Controller.extend({
     executeSearch() {
       const searchText = this.get('searchText');
       if (!searchText) return console.error('No search text provided.');
-      return this.get('apollo').queryOnce({ query, variables: { searchText } }, 'allLinks').then(result => {
-        this.set('model', result);
-      });
+      return this.get('apollo')
+        .queryOnce({ query, variables: { searchText } }, 'allLinks')
+        .then(result => {
+          this.set('model', result);
+        })
+        .catch(error => alert(error));
     }
   },
 

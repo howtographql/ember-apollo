@@ -11,8 +11,12 @@ export default Ember.Controller.extend({
       const email = this.get('email');
       const name = this.get('name');
       const password = this.get('password');
-      this.get('auth').loginOrSignUp(loginState, name, email, password);
-      this.transitionToRoute('/');
+      return this.get('auth')
+        .loginOrSignUp(loginState, name, email, password)
+        .then(() => {
+          this.transitionToRoute('/');
+        })
+        .catch(error => alert(error));
     }
   },
 

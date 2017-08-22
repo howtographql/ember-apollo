@@ -10,9 +10,8 @@ export default Ember.Controller.extend({
         console.error('No user logged in');
         return;
       }
-      const controller = this.get('controller');
-      const description = controller.get('description');
-      const url = controller.get('url');
+      const description = this.get('description');
+      const url = this.get('url');
       let variables = { description, url, postedById };
 
       return this.get('apollo')
@@ -20,7 +19,7 @@ export default Ember.Controller.extend({
           {
             mutation,
             variables,
-            update(store, { data: { createLink } }) {
+            update: (store, { data: { createLink } }) => {
               const data = store.readQuery({ query: allLinks });
               data.allLinks.splice(0, 0, createLink);
               store.writeQuery({
@@ -32,10 +31,11 @@ export default Ember.Controller.extend({
           'createLink'
         )
         .then(() => {
-          controller.set('description', '');
-          controller.set('url', '');
-          this.transitionTo('links');
-        });
+          this.set('description', '');
+          this.set('url', '');
+          this.transitionToRoute('links');
+        })
+        .catch(error => alert(error));
     }
   },
 

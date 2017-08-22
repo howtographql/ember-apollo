@@ -34,17 +34,28 @@ export default Ember.Service.extend({
   }),
 
   loginOrSignUp(state, name, email, password) {
-    if (state) {
-      let variables = { email, password };
-      return this.get('apollo').mutate({ mutation: signInUserMutation, variables }, 'signinUser').then(result => {
-        this.saveUserData(result.user.id, result.token);
-      });
-    } else {
-      let variables = { name, email, password };
-      return this.get('apollo').mutate({ mutation: createUser, variables }, 'signinUser').then(result => {
-        this.saveUserData(result.user.id, result.token);
-      });
-    }
+    let variables;
+    return new RSVP.Promise((resolve, reject) => {
+      if (state) {
+        variables = { email, password };
+        this.get('apollo')
+          .mutate({ mutation: signInUserMutation, variables }, 'signinUser')
+          .then(result => {
+            this.saveUserData(result.user.id, result.token);
+            resolve();
+          })
+          .catch(error => reject(error));
+      } else {
+        variables = { name, email, password };
+        this.get('apollo')
+          .mutate({ mutation: createUser, variables }, 'signinUser')
+          .then(result => {
+            this.saveUserData(result.user.id, result.token);
+            resolve();
+          })
+          .catch(error => reject(error));
+      }
+    });
   },
 
   logout() {

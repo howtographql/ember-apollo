@@ -2,8 +2,8 @@ query AllLinks {
   allLinks {
     id
     createdAt
-    description
     url
+    description
     postedBy {
       id
       name

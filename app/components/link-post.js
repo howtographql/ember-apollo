@@ -12,19 +12,21 @@ export default Ember.Component.extend({
         return;
       }
 
-      return this.get('apollo').mutate(
-        {
-          mutation: createVote,
-          variables: { userId, linkId },
-          update: (store, { data: { createVote } }) => {
-            const data = store.readQuery({ query: allLinks });
-            const votedLink = data.allLinks.find(link => link.id === linkId);
-            votedLink.votes = createVote.link.votes;
-            store.writeQuery({ query: allLinks, data });
-          }
-        },
-        'createVote'
-      );
+      return this.get('apollo')
+        .mutate(
+          {
+            mutation: createVote,
+            variables: { userId, linkId },
+            update: (store, { data: { createVote } }) => {
+              const data = store.readQuery({ query: allLinks });
+              const votedLink = data.allLinks.find(link => link.id === linkId);
+              votedLink.votes = createVote.link.votes;
+              store.writeQuery({ query: allLinks, data });
+            }
+          },
+          'createVote'
+        )
+        .catch(error => alert(error));
     }
   },
 

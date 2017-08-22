@@ -6,8 +6,6 @@ export default Ember.Route.extend(UnsubscribeRoute, {
   apollo: Ember.inject.service(),
 
   model() {
-    return this.get('apollo').query({ query }, 'allLinks').then(result => {
-      return result;
-    });
+    return this.get('apollo').query({ query }, 'allLinks').catch(error => alert(error));
   }
 });
